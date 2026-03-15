@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PURE weather </title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="eye-comfort-filter"></div>
+    <div class="bg-animate" id="bgAnimate"></div>
+    <div class="grain"></div>
+    <button class="theme-toggle" id="themeToggle"><i data-lucide="moon"></i></button>
+    <button class="eye-comfort-toggle" id="eyeToggle"><i data-lucide="eye"></i></button>
+    <button class="eye-comfort-toggle" id="eyeToggle"><i data-lucide="eye"></i></button>
+    
+    <main class="container">
+        <div class="brand">
+            <a href="./" class="logo-link">
+                <img src="logo.png" alt="Pure Weather Logo" class="brand-logo">
+            </a>
+            <span class="brand-title">PURE weather</span>
+        </div>
+        <div class="search-container">
+            <header class="search-bar glass">
+                <input type="text" id="cityInput" placeholder="بحث عن مدينة (مثلاً: الرياض، دبي)..." autocomplete="off">
+                <button id="searchBtn"><i data-lucide="search"></i></button>
+            </header>
+            <div id="suggestionsList" class="suggestions-list glass hidden"></div>
+        </div>
+
+        <section class="weather-main glass" id="weatherDisplay">
+            <div class="loader" id="loader"></div>
+            <div class="weather-content hidden" id="weatherContent">
+                <div class="current-info">
+                    <div class="status-bar">
+                        <div class="live-badge">
+                            <span class="pulsing-dot"></span>
+                            مباشر
+                        </div>
+                        <span id="lastUpdated">--:--</span>
+                    </div>
+                    <h1 id="cityName">القاهرة</h1>
+                    <p id="currentDate">الأحد، 15 مارس</p>
+                    <div class="temp-big">
+                        <span id="temperature">25</span>°
+                    </div>
+                    <p id="weatherDesc">صافٍ غالباً</p>
+                </div>
+                
+                <div class="weather-icon">
+                    <i id="mainIcon" data-lucide="sun" size="130"></i>
+                </div>
+            </div>
+        </section>
+
+        <section class="chart-section glass">
+            <canvas id="tempChart"></canvas>
+        </section>
+
+        <section class="weather-stats">
+            <div class="stat-card glass">
+                <i data-lucide="droplets"></i>
+                <div class="stat-info">
+                    <span>الرطوبة</span>
+                    <h3 id="humidity">45%</h3>
+                </div>
+            </div>
+            <div class="stat-card glass">
+                <i data-lucide="wind"></i>
+                <div class="stat-info">
+                    <span>الرياح</span>
+                    <h3 id="windSpeed">12 كم/س</h3>
+                </div>
+            </div>
+        </section>
+
+        <section class="radar-section glass">
+            <div class="section-header">
+                <h2>رادار الطقس المباشر</h2>
+                <div class="nav-controls">
+                    <span id="radarTime">جاري التحميل...</span>
+                </div>
+            </div>
+            <div id="radarMap" style="height: 400px; border-radius: 15px; position: relative; z-index: 1;"></div>
+        </section>
+
+        <section class="history-section glass">
+            <div class="section-header">
+                <h2>التوقعات الأسبوعية</h2>
+                <div class="nav-controls">
+                    <button id="prevWeek" disabled><i data-lucide="chevron-right"></i></button>
+                    <span id="weekLabel">الأسبوع الحالي</span>
+                    <button id="nextWeek"><i data-lucide="chevron-left"></i></button>
+                </div>
+            </div>
+            <div class="history-grid" id="historyGrid">
+                <!-- Data injected by JS -->
+            </div>
+        </section>
+    </main>
+
+    <script src="index.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
